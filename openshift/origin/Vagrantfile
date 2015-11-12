@@ -7,14 +7,14 @@ VAGRANTFILE_API_VERSION = "2"
 boxes = [
     {
         :name => "master1",
-        :eth1 => "192.168.210.1",
+        :eth1 => "192.168.210.2",
         :mem => "2048",
         :cpu => "2",
         :shell => "yum -y install epel-release && yum -y install ansible pyOpenSSL && cd ~ && git clone https://github.com/openshift/openshift-ansible"
     },
     {
         :name => "master2",
-        :eth1 => "192.168.210.2",
+        :eth1 => "192.168.210.3",
         :mem => "2048",
         :cpu => "2",
         :shell => "yum -y install epel-release && yum -y install ansible pyOpenSSL && cd ~ && git clone https://github.com/openshift/openshift-ansible"
@@ -33,7 +33,7 @@ boxes = [
     },
     {
         :name => "lb1",
-        :eth1 => "192.168.210.3",
+        :eth1 => "192.168.210.4",
         :mem => "1024",
         :cpu => "1"
     }
