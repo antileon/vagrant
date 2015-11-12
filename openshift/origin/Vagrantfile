@@ -47,9 +47,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define box[:name] do |config|
       config.vm.hostname = box[:name]
       config.vm.network :private_network, ip: box[:eth1]
-      config.vm.customize ["modifyvm", :id, "--memory", box[:mem]]
-      config.vm.customize ["modifyvm", :id, "--cpu", box[:cpu]]
 
+      config.vm.provider "virtualbox" do |v|
+        v.memory = box[:mem]
+        v.cpus = box[:cpu]
+      end
+      
       config.vm.provision "shell",
         inline: "echo '" + $hosts + "' >> /etc/hosts"
       unless box[:shell].nil?
