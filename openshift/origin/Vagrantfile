@@ -6,23 +6,36 @@ VAGRANTFILE_API_VERSION = "2"
 
 boxes = [
     {
-        :name => "origin_master",
-        :eth1 => "192.168.210.10",
+        :name => "master1",
+        :eth1 => "192.168.210.1",
         :mem => "2048",
         :cpu => "2",
-        :shell => "yum -y install epel-release && yum -y install ansible && cd ~ && git clone https://github.com/openshift/openshift-ansible"
+        :shell => "yum -y install epel-release && yum -y install ansible pyOpenSSL && cd ~ && git clone https://github.com/openshift/openshift-ansible"
     },
     {
-        :name => "origin_node1",
+        :name => "master2",
+        :eth1 => "192.168.210.2",
+        :mem => "2048",
+        :cpu => "2",
+        :shell => "yum -y install epel-release && yum -y install ansible pyOpenSSL && cd ~ && git clone https://github.com/openshift/openshift-ansible"
+    },
+    {
+        :name => "node1",
         :eth1 => "192.168.210.11",
-        :mem => "2048",
+        :mem => "3072",
         :cpu => "2"
     },
     {
-        :name => "origin_node2",
+        :name => "node2",
         :eth1 => "192.168.210.12",
-        :mem => "2048",
+        :mem => "3072",
         :cpu => "2"
+    },
+    {
+        :name => "lb1",
+        :eth1 => "192.168.210.3",
+        :mem => "1024",
+        :cpu => "1"
     }
 ]
 
@@ -52,7 +65,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.memory = box[:mem]
         v.cpus = box[:cpu]
       end
-      
+
       config.vm.provision "shell",
         inline: "echo '" + $hosts + "' >> /etc/hosts"
       unless box[:shell].nil?
